@@ -278,18 +278,10 @@ class SlowList:
         elif self.__is_string(element):
             return "'{}'".format(element)
         else:
-            raise TypeError("Datatype is not supported")
+            raise TypeError("Datatype not supported")
 
     def __is_int(self, var):
-        try:
-            int(var)
-            return True
-        except Exception:
-            return False
+        return isinstance(var, int)
 
     def __is_string(self, var):
-        try:
-            str(var)
-            return True
-        except Exception:
-            return False
+        return isinstance(var, str)

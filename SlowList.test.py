@@ -428,6 +428,18 @@ class TestSlowList(unittest.TestCase):
         self.assertEqual(raised_exception.__class__, IndexError)
         self.assertEqual(raised_exception.args, ('Index out of bounds',))
 
+    def test_set__when_one_element_and_index_0(self):
+        slow_list = SlowList()
+        slow_list.add("e1")
+
+        replaced_element = slow_list.set(0, "e2")
+        expected_replaced = "'e1'"
+        self.assertEqual(replaced_element, expected_replaced)
+
+        actual_e2 = slow_list.get(0)
+        expected_e2 = "'e2'"
+        self.assertEqual(actual_e2, expected_e2)
+
     def test_set__when_start_of_list(self):
         slow_list = SlowList()
         slow_list.add("e1")
@@ -481,6 +493,16 @@ class TestSlowList(unittest.TestCase):
         slow_list.add(10)
         expected = "['e1', 10]"
         self.assertEqual(slow_list.to_string(), expected)
+
+    def test_type__when_unsupported_datatype(self):
+        slow_list = SlowList()
+
+        with self.assertRaises(TypeError) as cm:
+            slow_list.add(["e1"])
+
+        raised_exception = cm.exception
+        self.assertEqual(raised_exception.__class__, TypeError)
+        self.assertEqual(raised_exception.args, ('Datatype not supported',))
 
 
 if __name__ == '__main__':
