@@ -1,5 +1,5 @@
 class SlowList:
-    __elements: str = ""
+    __list: str = ""
     __delimiter: str = ","
 
     def __init__(self):
@@ -9,9 +9,9 @@ class SlowList:
         e = self.__type(element)
 
         if self.is_empty():
-            self.__elements = e
+            self.__list = e
         else:
-            self.__elements += "{}{}".format(self.__delimiter, e)
+            self.__list += "{}{}".format(self.__delimiter, e)
 
     def addAt(self, index, element):
         if index > self.size() or index < 0:
@@ -21,28 +21,28 @@ class SlowList:
 
         # If index 0 then put in front
         if index == 0:
-            self.__elements = "{}{}{}".format(e, self.__delimiter,
-                                              self.__elements)
+            self.__list = "{}{}{}".format(e, self.__delimiter,
+                                          self.__list)
         elif index == self.size():  # If end of list
-            self.__elements += ",{}".format(e)
+            self.__list += ",{}".format(e)
         else:
             count = 1
             prev = 0
             should_run = True
             while should_run:
-                current = self.__elements.index(self.__delimiter, prev + 1)
+                current = self.__list.index(self.__delimiter, prev + 1)
                 if count == index:
-                    pre = self.__elements[:current]
-                    post = self.__elements[current:]
+                    pre = self.__list[:current]
+                    post = self.__list[current:]
                     new_element = "{}{}".format(self.__delimiter, e)
-                    self.__elements = "{}{}{}".format(pre, new_element, post)
+                    self.__list = "{}{}{}".format(pre, new_element, post)
                     should_run = False
                 else:
                     prev = current
                     count += 1
 
     def clear(self):
-        self.__elements = ""
+        self.__list = ""
 
     def contains(self, element):
         e = self.__type(element)
@@ -61,9 +61,9 @@ class SlowList:
 
         # If first element is requested and size is 1
         if self.size() == 1 and index == 0:
-            return self.__elements
+            return self.__list
 
-        split = self.__elements.split(self.__delimiter)
+        split = self.__list.split(self.__delimiter)
         count = 0
         for e in split:
             if index == count:
@@ -84,7 +84,7 @@ class SlowList:
         e = self.__type(element)
 
         index = 0
-        for split_e in self.__elements.split(self.__delimiter):
+        for split_e in self.__list.split(self.__delimiter):
             if e == split_e:
                 return index
             index += 1
@@ -92,7 +92,7 @@ class SlowList:
         return -1
 
     def is_empty(self):
-        return self.__elements == ""
+        return self.__list == ""
 
     def last_index_of(self, element):
         """
@@ -108,7 +108,7 @@ class SlowList:
         e = self.__type(element)
 
         index = self.size() - 1
-        split = self.__elements.split(self.__delimiter)
+        split = self.__list.split(self.__delimiter)
         for split_e in reversed(split):
             if e == split_e:
                 return index
@@ -130,7 +130,7 @@ class SlowList:
         e = self.__type(element)
 
         index = 0
-        split = self.__elements.split(self.__delimiter)
+        split = self.__list.split(self.__delimiter)
         for split_e in split:
             if split_e == e:
                 __ = self.remove_at(index)
@@ -152,45 +152,45 @@ class SlowList:
 
         # (Optimization) If only one element and index is 0
         if self.size() == 1 and index == 0:
-            e = self.__elements
-            self.__elements = ""
+            e = self.__list
+            self.__list = ""
             return e
 
         if index == 0:
-            first_delimiter = self.__elements.index(self.__delimiter, 0)
+            first_delimiter = self.__list.index(self.__delimiter, 0)
             # Get list except first element
-            post = self.__elements[first_delimiter + 1:]
+            post = self.__list[first_delimiter + 1:]
             # Get replaced element before modifying list
-            replaced_element = self.__elements[:first_delimiter]
+            replaced_element = self.__list[:first_delimiter]
 
             # Construct new list
-            self.__elements = "{}".format(post)
+            self.__list = "{}".format(post)
 
             return replaced_element
 
         count = 1
         prev = 0
         while True:
-            current = self.__elements.index(self.__delimiter, prev + 1)
+            current = self.__list.index(self.__delimiter, prev + 1)
             if count == index:
                 # Get the list before index
-                pre = self.__elements[:current]
+                pre = self.__list[:current]
 
                 # Get the list after index
                 try:
-                    next_delimiter = self.__elements.index(self.__delimiter,
-                                                           current + 1)
-                    post = self.__elements[next_delimiter:]
+                    next_delimiter = self.__list.index(self.__delimiter,
+                                                       current + 1)
+                    post = self.__list[next_delimiter:]
                 except Exception:
                     # If last element
-                    next_delimiter = len(self.__elements)
+                    next_delimiter = len(self.__list)
                     post = ""
 
                 # Get replaced element
-                replaced_element = self.__elements[current + 1:next_delimiter]
+                replaced_element = self.__list[current + 1:next_delimiter]
 
                 # Construct new list
-                self.__elements = "{}{}".format(pre, post)
+                self.__list = "{}{}".format(pre, post)
 
                 return replaced_element
             prev = current
@@ -199,7 +199,7 @@ class SlowList:
     def size(self):
         if self.is_empty():
             return 0
-        return self.__elements.count(self.__delimiter) + 1
+        return self.__list.count(self.__delimiter) + 1
 
     def set(self, index, element):
         """
@@ -217,47 +217,47 @@ class SlowList:
 
         # (Optimization) If only one element and index is 0
         if self.size() == 1 and index == 0:
-            elems = self.__elements
-            self.__elements = e
+            elems = self.__list
+            self.__list = e
             return elems
 
         # If first element in list
         if index == 0:
-            first_delimiter = self.__elements.index(self.__delimiter, 0)
+            first_delimiter = self.__list.index(self.__delimiter, 0)
             # Get list except first element
-            post = self.__elements[first_delimiter:]
+            post = self.__list[first_delimiter:]
             # Get replaced element before modifying list
-            replaced_element = self.__elements[:first_delimiter]
+            replaced_element = self.__list[:first_delimiter]
 
             # Construct new list
-            self.__elements = "{}{}".format(e, post)
+            self.__list = "{}{}".format(e, post)
 
             return replaced_element
 
         count = 1
         prev = 0
         while True:
-            current = self.__elements.index(self.__delimiter, prev + 1)
+            current = self.__list.index(self.__delimiter, prev + 1)
             if count == index:
                 # Get the list before index
-                pre = self.__elements[:current]
+                pre = self.__list[:current]
 
                 # Get the list after index
                 try:
-                    next_delimiter = self.__elements.index(self.__delimiter,
-                                                           current + 1)
-                    post = self.__elements[next_delimiter:]
+                    next_delimiter = self.__list.index(self.__delimiter,
+                                                       current + 1)
+                    post = self.__list[next_delimiter:]
                 except Exception:
                     # If last element
-                    next_delimiter = len(self.__elements)
+                    next_delimiter = len(self.__list)
                     post = ""
 
                 # Get replaced element
-                replaced_element = self.__elements[current + 1:next_delimiter]
+                replaced_element = self.__list[current + 1:next_delimiter]
 
                 # Construct new list
                 new_element = "{}{}".format(self.__delimiter, e)
-                self.__elements = "{}{}{}".format(pre, new_element, post)
+                self.__list = "{}{}{}".format(pre, new_element, post)
 
                 return replaced_element
             prev = current
@@ -266,7 +266,7 @@ class SlowList:
     def to_string(self):
         if self.is_empty():
             return ""
-        elements = self.__elements
+        elements = self.__list
         # Insert whitespace between elements
         spaced_element = "{}{}".format(self.__delimiter, " ")
         formatted_elements = elements.replace(self.__delimiter, spaced_element)
