@@ -17,4 +17,4 @@ install:
 	pip install -r requirements.txt
 
 lint:
-	pycodestyle --format=pylint *.py
+	pylama *.py
