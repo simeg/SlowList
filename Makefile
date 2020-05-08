@@ -3,7 +3,10 @@
 # Travis cannot use 'pushd' or 'popd' without SHELL defined
 SHELL := /bin/bash
 
-ci: install lint test
+ci: lint coverage
+
+coverage:
+	coverage run *.test.py
 
 install:
 	pip install -r requirements.txt
