@@ -1,0 +1,1611 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>SlowList API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>SlowList</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SlowList(object):
+    &#34;&#34;&#34;
+    A simple list type. Stores all elements in a single String. SlowList is
+    heterogeneous, meaning you can store data of different types in a single
+    list.
+    &#34;&#34;&#34;
+
+    __list: str = &#34;&#34;
+    __delimiter: str = &#34;,&#34;
+
+    def __init__(self, *args: object):
+        &#34;&#34;&#34;Constructor with optional arguments.
+
+        Returns:
+            object: instance of SlowList
+
+        &#34;&#34;&#34;
+        self.clear()
+        if len(args) &gt; 0:
+            for arg in args:
+                self.add(arg)
+
+    def add(self, element: object) -&gt; None:
+        &#34;&#34;&#34;Appends the specified element to the end of this list.
+
+        Args:
+            element (object): element to be appended to this list
+
+        &#34;&#34;&#34;
+        e = self.__type(element)
+
+        if self.is_empty():
+            self.__list = e
+        else:
+            self.__list += &#34;{}{}&#34;.format(self.__delimiter, e)
+
+    def add_at(self, index: int, element: object) -&gt; None:
+        &#34;&#34;&#34;Inserts the specified element at the specified position in this
+        list.
+
+        Args:
+            index (int): index at which the specified element is to be inserted
+            element (object): element to be appended to this list
+
+        Raises:
+            IndexError: if the index is out of range
+
+        &#34;&#34;&#34;
+        if index &gt; self.size() or index &lt; 0:
+            raise IndexError(&#34;Index out of bounds&#34;)
+
+        e = self.__type(element)
+
+        # If index 0 then put in front
+        if index == 0:
+            self.__list = &#34;{}{}{}&#34;.format(e, self.__delimiter,
+                                          self.__list)
+        elif index == self.size():  # If end of list
+            self.add(element)
+        else:
+            count = 1
+            prev = 0
+            while True:
+                current = self.__list.index(self.__delimiter, prev + 1)
+                if count == index:
+                    pre = self.__list[:current]
+                    post = self.__list[current:]
+                    new_element = &#34;{}{}&#34;.format(self.__delimiter, e)
+                    self.__list = &#34;{}{}{}&#34;.format(pre, new_element, post)
+                    return
+                else:
+                    prev = current
+                    count += 1
+
+    def clear(self) -&gt; None:
+        &#34;&#34;&#34;Removes all of the elements from this list.
+
+        &#34;&#34;&#34;
+        self.__list = &#34;&#34;
+
+    def contains(self, element: object) -&gt; bool:
+        &#34;&#34;&#34;Returns true if this list contains the specified element.
+
+        More formally, returns true if and only if this list contains at least
+        one element e such that `element == e`.
+
+        Args:
+            element (object): element whose presence in this list is to be
+                tested
+
+        Returns:
+            bool: true if this list contains the specified element
+
+        &#34;&#34;&#34;
+        e = self.__type(element)
+
+        for i in range(self.size()):
+            if self.get(i) == e:
+                return True
+        return False
+
+    def get(self, index: int) -&gt; object:
+        &#34;&#34;&#34;Returns the element at the specified position in this list.
+
+        Args:
+            index (int): index of the element to return
+
+        Returns:
+            int: the element at the specified position in this list
+
+        Raises:
+            IndexError: if the index is out of range
+
+        &#34;&#34;&#34;
+        if self.is_empty() or index &lt; 0:
+            raise IndexError(&#34;Index out of bounds&#34;)
+
+        if index &gt; 0 and index &gt;= self.size():
+            raise IndexError(&#34;Index out of bounds&#34;)
+
+        # If first element is requested and size is 1
+        if self.size() == 1 and index == 0:
+            return self.__list
+
+        count = 0
+        for e in self.__list.split(self.__delimiter):
+            if index == count:
+                return e
+            count += 1
+
+    def index_of(self, element: object) -&gt; int:
+        &#34;&#34;&#34;Returns the index of the first occurrence of the specified element
+        in this list, or -1 if this list does not contain the element.
+
+        More formally, returns the lowest index i such that
+        `element == get(i)`, or -1 if there is no such index.
+
+        Args:
+            element (object): element to search for
+
+        Returns:
+            int: the index of the first occurrence of the specified element in
+                this list, or -1 if this list does not contain the element
+
+        &#34;&#34;&#34;
+        e = self.__type(element)
+
+        for i in range(self.size()):
+            if self.get(i) == e:
+                return i
+
+        return -1
+
+    def is_empty(self) -&gt; bool:
+        &#34;&#34;&#34;Returns true if this list contains no elements.
+
+        Returns:
+            bool: true if this list contains no elements
+
+        &#34;&#34;&#34;
+        return self.__list == &#34;&#34;
+
+    def last_index_of(self, element: object) -&gt; int:
+        &#34;&#34;&#34;Returns the index of the last occurrence of the specified element in
+        this list, or -1 if this list does not contain the element.
+
+        More formally, returns the highest index i such that
+        `element == get(i)`, or -1 if there is no such index.
+
+        Args:
+            element (object): element to search for
+
+        Returns:
+            int: the index of the last occurrence of the specified element in
+                this list, or -1 if this list does not contain the element
+
+        &#34;&#34;&#34;
+        e = self.__type(element)
+
+        for i in reversed(range(self.size())):
+            if self.get(i) == e:
+                return i
+
+        return -1
+
+    @classmethod
+    def of(cls, *args: object):
+        &#34;&#34;&#34;Constructor with optional arguments.
+
+        Returns:
+            object: instance of SlowList
+
+        &#34;&#34;&#34;
+        return cls(*args)
+
+    def remove(self, element: object) -&gt; bool:
+        &#34;&#34;&#34;Removes the first occurrence of the specified element from this
+        list, if it is present.
+
+        If this list does not contain the element, it is unchanged. More
+        formally, removes the element with the lowest index i such that
+        `element == get(i)` (if such an element exists). Returns true if this
+        list contained the specified element (or equivalently, if this list
+        changed as a result of the call).
+
+        Args:
+            element (object): element to be removed from this list, if present
+
+        Returns:
+            bool: true if this list contained the specified element
+
+        &#34;&#34;&#34;
+        e = self.__type(element)
+
+        for i in range(self.size()):
+            if self.get(i) == e:
+                __ = self.remove_at(i)
+                return True
+
+        return False
+
+    def remove_at(self, index: int) -&gt; object:
+        &#34;&#34;&#34;Removes the element at the specified position in this list.
+
+        Shifts any subsequent elements to the left (subtracts one from their
+        indices). Returns the element that was removed from the list.
+
+        Args:
+            index (int): the index of the element to be removed
+
+        Returns:
+            object: the element previously at the specified position
+
+        Raises:
+            IndexError: if the index is out of range
+
+        &#34;&#34;&#34;
+        if self.is_empty() or index &gt;= self.size():
+            raise IndexError(&#34;Index out of bounds&#34;)
+
+        # (Optimization) If only one element and index is 0
+        if self.size() == 1 and index == 0:
+            e = self.get(0)
+            self.clear()
+            return e
+
+        if index == 0:
+            first_delimiter = self.__list.index(self.__delimiter, 0)
+            # Get list except first element
+            post = self.__list[first_delimiter + 1:]
+            # Get replaced element before modifying list
+            replaced_element = self.__list[:first_delimiter]
+
+            # Construct new list
+            self.__list = &#34;{}&#34;.format(post)
+
+            return replaced_element
+
+        count = 1
+        prev = 0
+        while True:
+            current = self.__list.index(self.__delimiter, prev + 1)
+            if count == index:
+                # Get the list before index
+                pre = self.__list[:current]
+
+                # Get the list after index
+                try:
+                    next_delimiter = self.__list.index(self.__delimiter,
+                                                       current + 1)
+                    post = self.__list[next_delimiter:]
+                except ValueError:
+                    # If last element
+                    next_delimiter = len(self.__list)
+                    post = &#34;&#34;
+
+                # Get replaced element
+                replaced_element = self.__list[current + 1:next_delimiter]
+
+                # Construct new list
+                self.__list = &#34;{}{}&#34;.format(pre, post)
+
+                return replaced_element
+            prev = current
+            count += 1
+
+    def size(self):
+        &#34;&#34;&#34;Returns the number of elements in this list.
+
+        Returns:
+            int: the number of elements in this list
+
+        &#34;&#34;&#34;
+        if self.is_empty():
+            return 0
+        return self.__list.count(self.__delimiter) + 1
+
+    def set(self, index: int, element: object) -&gt; object:
+        &#34;&#34;&#34;Replaces the element at the specified position in this list with the
+        specified element.
+
+        Args:
+            index: index of the element to replace
+            element: element to be stored at the specified position
+
+        Returns:
+            object: the element previously at the specified position
+
+        Raises:
+            IndexError: if the index is out of range
+
+        &#34;&#34;&#34;
+        if self.is_empty() or index &gt;= self.size():
+            raise IndexError(&#34;Index out of bounds&#34;)
+
+        e = self.__type(element)
+
+        # (Optimization) If only one element and index is 0
+        if self.size() == 1 and index == 0:
+            replaced_element = self.remove_at(0)
+            self.add(element)
+            return replaced_element
+
+        # If first element in list
+        if index == 0:
+            first_delimiter = self.__list.index(self.__delimiter, 0)
+            # Get list except first element
+            post = self.__list[first_delimiter:]
+            # Get replaced element before modifying list
+            replaced_element = self.get(0)
+
+            # Construct new list
+            self.__list = &#34;{}{}&#34;.format(e, post)
+
+            return replaced_element
+
+        count = 1
+        prev = 0
+        while True:
+            current = self.__list.index(self.__delimiter, prev + 1)
+            if count == index:
+                # Get the list before index
+                pre = self.__list[:current]
+
+                # Get the list after index
+                try:
+                    next_delimiter = self.__list.index(self.__delimiter,
+                                                       current + 1)
+                    post = self.__list[next_delimiter:]
+                except ValueError:
+                    # If last element
+                    next_delimiter = len(self.__list)
+                    post = &#34;&#34;
+
+                # Get replaced element
+                replaced_element = self.__list[current + 1:next_delimiter]
+
+                # Construct new list
+                new_element = &#34;{}{}&#34;.format(self.__delimiter, e)
+                self.__list = &#34;{}{}{}&#34;.format(pre, new_element, post)
+
+                return replaced_element
+            prev = current
+            count += 1
+
+    def to_string(self) -&gt; str:
+        &#34;&#34;&#34;Returns a string representation of the object.
+
+        Returns:
+            str: a string representation of the object
+
+        &#34;&#34;&#34;
+        if self.is_empty():
+            return &#34;&#34;
+
+        list = self.__list
+        # Insert whitespace between elements
+        formatted_elements = list.replace(self.__delimiter,
+                                          &#34;{}{}&#34;.format(self.__delimiter, &#34; &#34;))
+        return &#34;[{}]&#34;.format(formatted_elements)
+
+    def __type(self, var: object) -&gt; str:
+        &#34;&#34;&#34;Returns the internal representation depending on the type.
+
+        For String it will return:
+            &#39;99&#39;
+        For Integer it will return:
+            99
+
+        Args:
+            var (object): variable to convert
+
+        Returns:
+            str: internal representation of type
+
+        Raises:
+            TypeError: if data type not supported
+
+        &#34;&#34;&#34;
+        if self.__is_int(var):
+            return str(var)
+        elif self.__is_string(var):
+            return &#34;&#39;{}&#39;&#34;.format(var)
+        else:
+            raise TypeError(&#34;Datatype not supported&#34;)
+
+    @staticmethod
+    def __is_int(var: object) -&gt; bool:
+        &#34;&#34;&#34;Returns whether the variable is a valid Integer or not.
+
+        Args:
+            var (object): variable to check
+
+        Returns:
+            bool: whether the variable is a valid Integer or not
+
+        &#34;&#34;&#34;
+        return isinstance(var, int)
+
+    @staticmethod
+    def __is_string(var: object) -&gt; bool:
+        &#34;&#34;&#34;Returns whether the variable is a valid String or not.
+
+        Args:
+            var (object): variable to check
+
+        Returns:
+            bool: whether the variable is a valid String or not
+
+        &#34;&#34;&#34;
+        return isinstance(var, str)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="SlowList.SlowList"><code class="flex name class">
+<span>class <span class="ident">SlowList</span></span>
+<span>(</span><span>*args: object)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A simple list type. Stores all elements in a single String. SlowList is
+heterogeneous, meaning you can store data of different types in a single
+list.</p>
+<p>Constructor with optional arguments.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>object</code></dt>
+<dd>instance of SlowList</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SlowList(object):
+    &#34;&#34;&#34;
+    A simple list type. Stores all elements in a single String. SlowList is
+    heterogeneous, meaning you can store data of different types in a single
+    list.
+    &#34;&#34;&#34;
+
+    __list: str = &#34;&#34;
+    __delimiter: str = &#34;,&#34;
+
+    def __init__(self, *args: object):
+        &#34;&#34;&#34;Constructor with optional arguments.
+
+        Returns:
+            object: instance of SlowList
+
+        &#34;&#34;&#34;
+        self.clear()
+        if len(args) &gt; 0:
+            for arg in args:
+                self.add(arg)
+
+    def add(self, element: object) -&gt; None:
+        &#34;&#34;&#34;Appends the specified element to the end of this list.
+
+        Args:
+            element (object): element to be appended to this list
+
+        &#34;&#34;&#34;
+        e = self.__type(element)
+
+        if self.is_empty():
+            self.__list = e
+        else:
+            self.__list += &#34;{}{}&#34;.format(self.__delimiter, e)
+
+    def add_at(self, index: int, element: object) -&gt; None:
+        &#34;&#34;&#34;Inserts the specified element at the specified position in this
+        list.
+
+        Args:
+            index (int): index at which the specified element is to be inserted
+            element (object): element to be appended to this list
+
+        Raises:
+            IndexError: if the index is out of range
+
+        &#34;&#34;&#34;
+        if index &gt; self.size() or index &lt; 0:
+            raise IndexError(&#34;Index out of bounds&#34;)
+
+        e = self.__type(element)
+
+        # If index 0 then put in front
+        if index == 0:
+            self.__list = &#34;{}{}{}&#34;.format(e, self.__delimiter,
+                                          self.__list)
+        elif index == self.size():  # If end of list
+            self.add(element)
+        else:
+            count = 1
+            prev = 0
+            while True:
+                current = self.__list.index(self.__delimiter, prev + 1)
+                if count == index:
+                    pre = self.__list[:current]
+                    post = self.__list[current:]
+                    new_element = &#34;{}{}&#34;.format(self.__delimiter, e)
+                    self.__list = &#34;{}{}{}&#34;.format(pre, new_element, post)
+                    return
+                else:
+                    prev = current
+                    count += 1
+
+    def clear(self) -&gt; None:
+        &#34;&#34;&#34;Removes all of the elements from this list.
+
+        &#34;&#34;&#34;
+        self.__list = &#34;&#34;
+
+    def contains(self, element: object) -&gt; bool:
+        &#34;&#34;&#34;Returns true if this list contains the specified element.
+
+        More formally, returns true if and only if this list contains at least
+        one element e such that `element == e`.
+
+        Args:
+            element (object): element whose presence in this list is to be
+                tested
+
+        Returns:
+            bool: true if this list contains the specified element
+
+        &#34;&#34;&#34;
+        e = self.__type(element)
+
+        for i in range(self.size()):
+            if self.get(i) == e:
+                return True
+        return False
+
+    def get(self, index: int) -&gt; object:
+        &#34;&#34;&#34;Returns the element at the specified position in this list.
+
+        Args:
+            index (int): index of the element to return
+
+        Returns:
+            int: the element at the specified position in this list
+
+        Raises:
+            IndexError: if the index is out of range
+
+        &#34;&#34;&#34;
+        if self.is_empty() or index &lt; 0:
+            raise IndexError(&#34;Index out of bounds&#34;)
+
+        if index &gt; 0 and index &gt;= self.size():
+            raise IndexError(&#34;Index out of bounds&#34;)
+
+        # If first element is requested and size is 1
+        if self.size() == 1 and index == 0:
+            return self.__list
+
+        count = 0
+        for e in self.__list.split(self.__delimiter):
+            if index == count:
+                return e
+            count += 1
+
+    def index_of(self, element: object) -&gt; int:
+        &#34;&#34;&#34;Returns the index of the first occurrence of the specified element
+        in this list, or -1 if this list does not contain the element.
+
+        More formally, returns the lowest index i such that
+        `element == get(i)`, or -1 if there is no such index.
+
+        Args:
+            element (object): element to search for
+
+        Returns:
+            int: the index of the first occurrence of the specified element in
+                this list, or -1 if this list does not contain the element
+
+        &#34;&#34;&#34;
+        e = self.__type(element)
+
+        for i in range(self.size()):
+            if self.get(i) == e:
+                return i
+
+        return -1
+
+    def is_empty(self) -&gt; bool:
+        &#34;&#34;&#34;Returns true if this list contains no elements.
+
+        Returns:
+            bool: true if this list contains no elements
+
+        &#34;&#34;&#34;
+        return self.__list == &#34;&#34;
+
+    def last_index_of(self, element: object) -&gt; int:
+        &#34;&#34;&#34;Returns the index of the last occurrence of the specified element in
+        this list, or -1 if this list does not contain the element.
+
+        More formally, returns the highest index i such that
+        `element == get(i)`, or -1 if there is no such index.
+
+        Args:
+            element (object): element to search for
+
+        Returns:
+            int: the index of the last occurrence of the specified element in
+                this list, or -1 if this list does not contain the element
+
+        &#34;&#34;&#34;
+        e = self.__type(element)
+
+        for i in reversed(range(self.size())):
+            if self.get(i) == e:
+                return i
+
+        return -1
+
+    @classmethod
+    def of(cls, *args: object):
+        &#34;&#34;&#34;Constructor with optional arguments.
+
+        Returns:
+            object: instance of SlowList
+
+        &#34;&#34;&#34;
+        return cls(*args)
+
+    def remove(self, element: object) -&gt; bool:
+        &#34;&#34;&#34;Removes the first occurrence of the specified element from this
+        list, if it is present.
+
+        If this list does not contain the element, it is unchanged. More
+        formally, removes the element with the lowest index i such that
+        `element == get(i)` (if such an element exists). Returns true if this
+        list contained the specified element (or equivalently, if this list
+        changed as a result of the call).
+
+        Args:
+            element (object): element to be removed from this list, if present
+
+        Returns:
+            bool: true if this list contained the specified element
+
+        &#34;&#34;&#34;
+        e = self.__type(element)
+
+        for i in range(self.size()):
+            if self.get(i) == e:
+                __ = self.remove_at(i)
+                return True
+
+        return False
+
+    def remove_at(self, index: int) -&gt; object:
+        &#34;&#34;&#34;Removes the element at the specified position in this list.
+
+        Shifts any subsequent elements to the left (subtracts one from their
+        indices). Returns the element that was removed from the list.
+
+        Args:
+            index (int): the index of the element to be removed
+
+        Returns:
+            object: the element previously at the specified position
+
+        Raises:
+            IndexError: if the index is out of range
+
+        &#34;&#34;&#34;
+        if self.is_empty() or index &gt;= self.size():
+            raise IndexError(&#34;Index out of bounds&#34;)
+
+        # (Optimization) If only one element and index is 0
+        if self.size() == 1 and index == 0:
+            e = self.get(0)
+            self.clear()
+            return e
+
+        if index == 0:
+            first_delimiter = self.__list.index(self.__delimiter, 0)
+            # Get list except first element
+            post = self.__list[first_delimiter + 1:]
+            # Get replaced element before modifying list
+            replaced_element = self.__list[:first_delimiter]
+
+            # Construct new list
+            self.__list = &#34;{}&#34;.format(post)
+
+            return replaced_element
+
+        count = 1
+        prev = 0
+        while True:
+            current = self.__list.index(self.__delimiter, prev + 1)
+            if count == index:
+                # Get the list before index
+                pre = self.__list[:current]
+
+                # Get the list after index
+                try:
+                    next_delimiter = self.__list.index(self.__delimiter,
+                                                       current + 1)
+                    post = self.__list[next_delimiter:]
+                except ValueError:
+                    # If last element
+                    next_delimiter = len(self.__list)
+                    post = &#34;&#34;
+
+                # Get replaced element
+                replaced_element = self.__list[current + 1:next_delimiter]
+
+                # Construct new list
+                self.__list = &#34;{}{}&#34;.format(pre, post)
+
+                return replaced_element
+            prev = current
+            count += 1
+
+    def size(self):
+        &#34;&#34;&#34;Returns the number of elements in this list.
+
+        Returns:
+            int: the number of elements in this list
+
+        &#34;&#34;&#34;
+        if self.is_empty():
+            return 0
+        return self.__list.count(self.__delimiter) + 1
+
+    def set(self, index: int, element: object) -&gt; object:
+        &#34;&#34;&#34;Replaces the element at the specified position in this list with the
+        specified element.
+
+        Args:
+            index: index of the element to replace
+            element: element to be stored at the specified position
+
+        Returns:
+            object: the element previously at the specified position
+
+        Raises:
+            IndexError: if the index is out of range
+
+        &#34;&#34;&#34;
+        if self.is_empty() or index &gt;= self.size():
+            raise IndexError(&#34;Index out of bounds&#34;)
+
+        e = self.__type(element)
+
+        # (Optimization) If only one element and index is 0
+        if self.size() == 1 and index == 0:
+            replaced_element = self.remove_at(0)
+            self.add(element)
+            return replaced_element
+
+        # If first element in list
+        if index == 0:
+            first_delimiter = self.__list.index(self.__delimiter, 0)
+            # Get list except first element
+            post = self.__list[first_delimiter:]
+            # Get replaced element before modifying list
+            replaced_element = self.get(0)
+
+            # Construct new list
+            self.__list = &#34;{}{}&#34;.format(e, post)
+
+            return replaced_element
+
+        count = 1
+        prev = 0
+        while True:
+            current = self.__list.index(self.__delimiter, prev + 1)
+            if count == index:
+                # Get the list before index
+                pre = self.__list[:current]
+
+                # Get the list after index
+                try:
+                    next_delimiter = self.__list.index(self.__delimiter,
+                                                       current + 1)
+                    post = self.__list[next_delimiter:]
+                except ValueError:
+                    # If last element
+                    next_delimiter = len(self.__list)
+                    post = &#34;&#34;
+
+                # Get replaced element
+                replaced_element = self.__list[current + 1:next_delimiter]
+
+                # Construct new list
+                new_element = &#34;{}{}&#34;.format(self.__delimiter, e)
+                self.__list = &#34;{}{}{}&#34;.format(pre, new_element, post)
+
+                return replaced_element
+            prev = current
+            count += 1
+
+    def to_string(self) -&gt; str:
+        &#34;&#34;&#34;Returns a string representation of the object.
+
+        Returns:
+            str: a string representation of the object
+
+        &#34;&#34;&#34;
+        if self.is_empty():
+            return &#34;&#34;
+
+        list = self.__list
+        # Insert whitespace between elements
+        formatted_elements = list.replace(self.__delimiter,
+                                          &#34;{}{}&#34;.format(self.__delimiter, &#34; &#34;))
+        return &#34;[{}]&#34;.format(formatted_elements)
+
+    def __type(self, var: object) -&gt; str:
+        &#34;&#34;&#34;Returns the internal representation depending on the type.
+
+        For String it will return:
+            &#39;99&#39;
+        For Integer it will return:
+            99
+
+        Args:
+            var (object): variable to convert
+
+        Returns:
+            str: internal representation of type
+
+        Raises:
+            TypeError: if data type not supported
+
+        &#34;&#34;&#34;
+        if self.__is_int(var):
+            return str(var)
+        elif self.__is_string(var):
+            return &#34;&#39;{}&#39;&#34;.format(var)
+        else:
+            raise TypeError(&#34;Datatype not supported&#34;)
+
+    @staticmethod
+    def __is_int(var: object) -&gt; bool:
+        &#34;&#34;&#34;Returns whether the variable is a valid Integer or not.
+
+        Args:
+            var (object): variable to check
+
+        Returns:
+            bool: whether the variable is a valid Integer or not
+
+        &#34;&#34;&#34;
+        return isinstance(var, int)
+
+    @staticmethod
+    def __is_string(var: object) -&gt; bool:
+        &#34;&#34;&#34;Returns whether the variable is a valid String or not.
+
+        Args:
+            var (object): variable to check
+
+        Returns:
+            bool: whether the variable is a valid String or not
+
+        &#34;&#34;&#34;
+        return isinstance(var, str)</code></pre>
+</details>
+<h3>Static methods</h3>
+<dl>
+<dt id="SlowList.SlowList.of"><code class="name flex">
+<span>def <span class="ident">of</span></span>(<span>*args: object)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Constructor with optional arguments.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>object</code></dt>
+<dd>instance of SlowList</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def of(cls, *args: object):
+    &#34;&#34;&#34;Constructor with optional arguments.
+
+    Returns:
+        object: instance of SlowList
+
+    &#34;&#34;&#34;
+    return cls(*args)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="SlowList.SlowList.add"><code class="name flex">
+<span>def <span class="ident">add</span></span>(<span>self, element: object) -> NoneType</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Appends the specified element to the end of this list.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>element</code></strong> :&ensp;<code>object</code></dt>
+<dd>element to be appended to this list</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add(self, element: object) -&gt; None:
+    &#34;&#34;&#34;Appends the specified element to the end of this list.
+
+    Args:
+        element (object): element to be appended to this list
+
+    &#34;&#34;&#34;
+    e = self.__type(element)
+
+    if self.is_empty():
+        self.__list = e
+    else:
+        self.__list += &#34;{}{}&#34;.format(self.__delimiter, e)</code></pre>
+</details>
+</dd>
+<dt id="SlowList.SlowList.add_at"><code class="name flex">
+<span>def <span class="ident">add_at</span></span>(<span>self, index: int, element: object) -> NoneType</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Inserts the specified element at the specified position in this
+list.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>index</code></strong> :&ensp;<code>int</code></dt>
+<dd>index at which the specified element is to be inserted</dd>
+<dt><strong><code>element</code></strong> :&ensp;<code>object</code></dt>
+<dd>element to be appended to this list</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>IndexError</code></dt>
+<dd>if the index is out of range</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_at(self, index: int, element: object) -&gt; None:
+    &#34;&#34;&#34;Inserts the specified element at the specified position in this
+    list.
+
+    Args:
+        index (int): index at which the specified element is to be inserted
+        element (object): element to be appended to this list
+
+    Raises:
+        IndexError: if the index is out of range
+
+    &#34;&#34;&#34;
+    if index &gt; self.size() or index &lt; 0:
+        raise IndexError(&#34;Index out of bounds&#34;)
+
+    e = self.__type(element)
+
+    # If index 0 then put in front
+    if index == 0:
+        self.__list = &#34;{}{}{}&#34;.format(e, self.__delimiter,
+                                      self.__list)
+    elif index == self.size():  # If end of list
+        self.add(element)
+    else:
+        count = 1
+        prev = 0
+        while True:
+            current = self.__list.index(self.__delimiter, prev + 1)
+            if count == index:
+                pre = self.__list[:current]
+                post = self.__list[current:]
+                new_element = &#34;{}{}&#34;.format(self.__delimiter, e)
+                self.__list = &#34;{}{}{}&#34;.format(pre, new_element, post)
+                return
+            else:
+                prev = current
+                count += 1</code></pre>
+</details>
+</dd>
+<dt id="SlowList.SlowList.clear"><code class="name flex">
+<span>def <span class="ident">clear</span></span>(<span>self) -> NoneType</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Removes all of the elements from this list.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def clear(self) -&gt; None:
+    &#34;&#34;&#34;Removes all of the elements from this list.
+
+    &#34;&#34;&#34;
+    self.__list = &#34;&#34;</code></pre>
+</details>
+</dd>
+<dt id="SlowList.SlowList.contains"><code class="name flex">
+<span>def <span class="ident">contains</span></span>(<span>self, element: object) -> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns true if this list contains the specified element.</p>
+<p>More formally, returns true if and only if this list contains at least
+one element e such that <code>element == e</code>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>element</code></strong> :&ensp;<code>object</code></dt>
+<dd>element whose presence in this list is to be
+tested</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>true if this list contains the specified element</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def contains(self, element: object) -&gt; bool:
+    &#34;&#34;&#34;Returns true if this list contains the specified element.
+
+    More formally, returns true if and only if this list contains at least
+    one element e such that `element == e`.
+
+    Args:
+        element (object): element whose presence in this list is to be
+            tested
+
+    Returns:
+        bool: true if this list contains the specified element
+
+    &#34;&#34;&#34;
+    e = self.__type(element)
+
+    for i in range(self.size()):
+        if self.get(i) == e:
+            return True
+    return False</code></pre>
+</details>
+</dd>
+<dt id="SlowList.SlowList.get"><code class="name flex">
+<span>def <span class="ident">get</span></span>(<span>self, index: int) -> object</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the element at the specified position in this list.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>index</code></strong> :&ensp;<code>int</code></dt>
+<dd>index of the element to return</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>the element at the specified position in this list</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>IndexError</code></dt>
+<dd>if the index is out of range</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get(self, index: int) -&gt; object:
+    &#34;&#34;&#34;Returns the element at the specified position in this list.
+
+    Args:
+        index (int): index of the element to return
+
+    Returns:
+        int: the element at the specified position in this list
+
+    Raises:
+        IndexError: if the index is out of range
+
+    &#34;&#34;&#34;
+    if self.is_empty() or index &lt; 0:
+        raise IndexError(&#34;Index out of bounds&#34;)
+
+    if index &gt; 0 and index &gt;= self.size():
+        raise IndexError(&#34;Index out of bounds&#34;)
+
+    # If first element is requested and size is 1
+    if self.size() == 1 and index == 0:
+        return self.__list
+
+    count = 0
+    for e in self.__list.split(self.__delimiter):
+        if index == count:
+            return e
+        count += 1</code></pre>
+</details>
+</dd>
+<dt id="SlowList.SlowList.index_of"><code class="name flex">
+<span>def <span class="ident">index_of</span></span>(<span>self, element: object) -> int</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the index of the first occurrence of the specified element
+in this list, or -1 if this list does not contain the element.</p>
+<p>More formally, returns the lowest index i such that
+<code>element == get(i)</code>, or -1 if there is no such index.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>element</code></strong> :&ensp;<code>object</code></dt>
+<dd>element to search for</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>the index of the first occurrence of the specified element in
+this list, or -1 if this list does not contain the element</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def index_of(self, element: object) -&gt; int:
+    &#34;&#34;&#34;Returns the index of the first occurrence of the specified element
+    in this list, or -1 if this list does not contain the element.
+
+    More formally, returns the lowest index i such that
+    `element == get(i)`, or -1 if there is no such index.
+
+    Args:
+        element (object): element to search for
+
+    Returns:
+        int: the index of the first occurrence of the specified element in
+            this list, or -1 if this list does not contain the element
+
+    &#34;&#34;&#34;
+    e = self.__type(element)
+
+    for i in range(self.size()):
+        if self.get(i) == e:
+            return i
+
+    return -1</code></pre>
+</details>
+</dd>
+<dt id="SlowList.SlowList.is_empty"><code class="name flex">
+<span>def <span class="ident">is_empty</span></span>(<span>self) -> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns true if this list contains no elements.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>true if this list contains no elements</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_empty(self) -&gt; bool:
+    &#34;&#34;&#34;Returns true if this list contains no elements.
+
+    Returns:
+        bool: true if this list contains no elements
+
+    &#34;&#34;&#34;
+    return self.__list == &#34;&#34;</code></pre>
+</details>
+</dd>
+<dt id="SlowList.SlowList.last_index_of"><code class="name flex">
+<span>def <span class="ident">last_index_of</span></span>(<span>self, element: object) -> int</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the index of the last occurrence of the specified element in
+this list, or -1 if this list does not contain the element.</p>
+<p>More formally, returns the highest index i such that
+<code>element == get(i)</code>, or -1 if there is no such index.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>element</code></strong> :&ensp;<code>object</code></dt>
+<dd>element to search for</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>the index of the last occurrence of the specified element in
+this list, or -1 if this list does not contain the element</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def last_index_of(self, element: object) -&gt; int:
+    &#34;&#34;&#34;Returns the index of the last occurrence of the specified element in
+    this list, or -1 if this list does not contain the element.
+
+    More formally, returns the highest index i such that
+    `element == get(i)`, or -1 if there is no such index.
+
+    Args:
+        element (object): element to search for
+
+    Returns:
+        int: the index of the last occurrence of the specified element in
+            this list, or -1 if this list does not contain the element
+
+    &#34;&#34;&#34;
+    e = self.__type(element)
+
+    for i in reversed(range(self.size())):
+        if self.get(i) == e:
+            return i
+
+    return -1</code></pre>
+</details>
+</dd>
+<dt id="SlowList.SlowList.remove"><code class="name flex">
+<span>def <span class="ident">remove</span></span>(<span>self, element: object) -> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Removes the first occurrence of the specified element from this
+list, if it is present.</p>
+<p>If this list does not contain the element, it is unchanged. More
+formally, removes the element with the lowest index i such that
+<code>element == get(i)</code> (if such an element exists). Returns true if this
+list contained the specified element (or equivalently, if this list
+changed as a result of the call).</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>element</code></strong> :&ensp;<code>object</code></dt>
+<dd>element to be removed from this list, if present</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>true if this list contained the specified element</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove(self, element: object) -&gt; bool:
+    &#34;&#34;&#34;Removes the first occurrence of the specified element from this
+    list, if it is present.
+
+    If this list does not contain the element, it is unchanged. More
+    formally, removes the element with the lowest index i such that
+    `element == get(i)` (if such an element exists). Returns true if this
+    list contained the specified element (or equivalently, if this list
+    changed as a result of the call).
+
+    Args:
+        element (object): element to be removed from this list, if present
+
+    Returns:
+        bool: true if this list contained the specified element
+
+    &#34;&#34;&#34;
+    e = self.__type(element)
+
+    for i in range(self.size()):
+        if self.get(i) == e:
+            __ = self.remove_at(i)
+            return True
+
+    return False</code></pre>
+</details>
+</dd>
+<dt id="SlowList.SlowList.remove_at"><code class="name flex">
+<span>def <span class="ident">remove_at</span></span>(<span>self, index: int) -> object</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Removes the element at the specified position in this list.</p>
+<p>Shifts any subsequent elements to the left (subtracts one from their
+indices). Returns the element that was removed from the list.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>index</code></strong> :&ensp;<code>int</code></dt>
+<dd>the index of the element to be removed</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>object</code></dt>
+<dd>the element previously at the specified position</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>IndexError</code></dt>
+<dd>if the index is out of range</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_at(self, index: int) -&gt; object:
+    &#34;&#34;&#34;Removes the element at the specified position in this list.
+
+    Shifts any subsequent elements to the left (subtracts one from their
+    indices). Returns the element that was removed from the list.
+
+    Args:
+        index (int): the index of the element to be removed
+
+    Returns:
+        object: the element previously at the specified position
+
+    Raises:
+        IndexError: if the index is out of range
+
+    &#34;&#34;&#34;
+    if self.is_empty() or index &gt;= self.size():
+        raise IndexError(&#34;Index out of bounds&#34;)
+
+    # (Optimization) If only one element and index is 0
+    if self.size() == 1 and index == 0:
+        e = self.get(0)
+        self.clear()
+        return e
+
+    if index == 0:
+        first_delimiter = self.__list.index(self.__delimiter, 0)
+        # Get list except first element
+        post = self.__list[first_delimiter + 1:]
+        # Get replaced element before modifying list
+        replaced_element = self.__list[:first_delimiter]
+
+        # Construct new list
+        self.__list = &#34;{}&#34;.format(post)
+
+        return replaced_element
+
+    count = 1
+    prev = 0
+    while True:
+        current = self.__list.index(self.__delimiter, prev + 1)
+        if count == index:
+            # Get the list before index
+            pre = self.__list[:current]
+
+            # Get the list after index
+            try:
+                next_delimiter = self.__list.index(self.__delimiter,
+                                                   current + 1)
+                post = self.__list[next_delimiter:]
+            except ValueError:
+                # If last element
+                next_delimiter = len(self.__list)
+                post = &#34;&#34;
+
+            # Get replaced element
+            replaced_element = self.__list[current + 1:next_delimiter]
+
+            # Construct new list
+            self.__list = &#34;{}{}&#34;.format(pre, post)
+
+            return replaced_element
+        prev = current
+        count += 1</code></pre>
+</details>
+</dd>
+<dt id="SlowList.SlowList.set"><code class="name flex">
+<span>def <span class="ident">set</span></span>(<span>self, index: int, element: object) -> object</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Replaces the element at the specified position in this list with the
+specified element.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>index</code></strong></dt>
+<dd>index of the element to replace</dd>
+<dt><strong><code>element</code></strong></dt>
+<dd>element to be stored at the specified position</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>object</code></dt>
+<dd>the element previously at the specified position</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>IndexError</code></dt>
+<dd>if the index is out of range</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set(self, index: int, element: object) -&gt; object:
+    &#34;&#34;&#34;Replaces the element at the specified position in this list with the
+    specified element.
+
+    Args:
+        index: index of the element to replace
+        element: element to be stored at the specified position
+
+    Returns:
+        object: the element previously at the specified position
+
+    Raises:
+        IndexError: if the index is out of range
+
+    &#34;&#34;&#34;
+    if self.is_empty() or index &gt;= self.size():
+        raise IndexError(&#34;Index out of bounds&#34;)
+
+    e = self.__type(element)
+
+    # (Optimization) If only one element and index is 0
+    if self.size() == 1 and index == 0:
+        replaced_element = self.remove_at(0)
+        self.add(element)
+        return replaced_element
+
+    # If first element in list
+    if index == 0:
+        first_delimiter = self.__list.index(self.__delimiter, 0)
+        # Get list except first element
+        post = self.__list[first_delimiter:]
+        # Get replaced element before modifying list
+        replaced_element = self.get(0)
+
+        # Construct new list
+        self.__list = &#34;{}{}&#34;.format(e, post)
+
+        return replaced_element
+
+    count = 1
+    prev = 0
+    while True:
+        current = self.__list.index(self.__delimiter, prev + 1)
+        if count == index:
+            # Get the list before index
+            pre = self.__list[:current]
+
+            # Get the list after index
+            try:
+                next_delimiter = self.__list.index(self.__delimiter,
+                                                   current + 1)
+                post = self.__list[next_delimiter:]
+            except ValueError:
+                # If last element
+                next_delimiter = len(self.__list)
+                post = &#34;&#34;
+
+            # Get replaced element
+            replaced_element = self.__list[current + 1:next_delimiter]
+
+            # Construct new list
+            new_element = &#34;{}{}&#34;.format(self.__delimiter, e)
+            self.__list = &#34;{}{}{}&#34;.format(pre, new_element, post)
+
+            return replaced_element
+        prev = current
+        count += 1</code></pre>
+</details>
+</dd>
+<dt id="SlowList.SlowList.size"><code class="name flex">
+<span>def <span class="ident">size</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the number of elements in this list.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>the number of elements in this list</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def size(self):
+    &#34;&#34;&#34;Returns the number of elements in this list.
+
+    Returns:
+        int: the number of elements in this list
+
+    &#34;&#34;&#34;
+    if self.is_empty():
+        return 0
+    return self.__list.count(self.__delimiter) + 1</code></pre>
+</details>
+</dd>
+<dt id="SlowList.SlowList.to_string"><code class="name flex">
+<span>def <span class="ident">to_string</span></span>(<span>self) -> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns a string representation of the object.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>a string representation of the object</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_string(self) -&gt; str:
+    &#34;&#34;&#34;Returns a string representation of the object.
+
+    Returns:
+        str: a string representation of the object
+
+    &#34;&#34;&#34;
+    if self.is_empty():
+        return &#34;&#34;
+
+    list = self.__list
+    # Insert whitespace between elements
+    formatted_elements = list.replace(self.__delimiter,
+                                      &#34;{}{}&#34;.format(self.__delimiter, &#34; &#34;))
+    return &#34;[{}]&#34;.format(formatted_elements)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="SlowList.SlowList" href="#SlowList.SlowList">SlowList</a></code></h4>
+<ul class="two-column">
+<li><code><a title="SlowList.SlowList.add" href="#SlowList.SlowList.add">add</a></code></li>
+<li><code><a title="SlowList.SlowList.add_at" href="#SlowList.SlowList.add_at">add_at</a></code></li>
+<li><code><a title="SlowList.SlowList.clear" href="#SlowList.SlowList.clear">clear</a></code></li>
+<li><code><a title="SlowList.SlowList.contains" href="#SlowList.SlowList.contains">contains</a></code></li>
+<li><code><a title="SlowList.SlowList.get" href="#SlowList.SlowList.get">get</a></code></li>
+<li><code><a title="SlowList.SlowList.index_of" href="#SlowList.SlowList.index_of">index_of</a></code></li>
+<li><code><a title="SlowList.SlowList.is_empty" href="#SlowList.SlowList.is_empty">is_empty</a></code></li>
+<li><code><a title="SlowList.SlowList.last_index_of" href="#SlowList.SlowList.last_index_of">last_index_of</a></code></li>
+<li><code><a title="SlowList.SlowList.of" href="#SlowList.SlowList.of">of</a></code></li>
+<li><code><a title="SlowList.SlowList.remove" href="#SlowList.SlowList.remove">remove</a></code></li>
+<li><code><a title="SlowList.SlowList.remove_at" href="#SlowList.SlowList.remove_at">remove_at</a></code></li>
+<li><code><a title="SlowList.SlowList.set" href="#SlowList.SlowList.set">set</a></code></li>
+<li><code><a title="SlowList.SlowList.size" href="#SlowList.SlowList.size">size</a></code></li>
+<li><code><a title="SlowList.SlowList.to_string" href="#SlowList.SlowList.to_string">to_string</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
