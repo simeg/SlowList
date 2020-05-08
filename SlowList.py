@@ -2,8 +2,15 @@ class SlowList:
     __list: str = ""
     __delimiter: str = ","
 
-    def __init__(self):
-        self.__elements = ""
+    def __init__(self, *args):
+        self.__list = ""
+        if len(args) > 0:
+            for arg in args:
+                self.add(arg)
+
+    @classmethod
+    def of(cls, *args):
+        return cls(*args)
 
     def add(self, element):
         e = self.__type(element)

@@ -11,6 +11,32 @@ class TestSlowList(unittest.TestCase):
         slow_list = SlowList()
         self.assertTrue(isinstance(slow_list, SlowList))
 
+    def test_constructor__when_arguments(self):
+        slow_list = SlowList("e1", "e2")
+
+        self.assertEqual(slow_list.size(), 2)
+
+        actual_e1 = slow_list.get(0)
+        expected_e1 = "'e1'"
+        self.assertEqual(actual_e1, expected_e1)
+
+        actual_e2 = slow_list.get(1)
+        expected_e2 = "'e2'"
+        self.assertEqual(actual_e2, expected_e2)
+
+    def test_of__when_arguments(self):
+        slow_list = SlowList.of("e1", "e2")
+
+        self.assertEqual(slow_list.size(), 2)
+
+        actual_e1 = slow_list.get(0)
+        expected_e1 = "'e1'"
+        self.assertEqual(actual_e1, expected_e1)
+
+        actual_e2 = slow_list.get(1)
+        expected_e2 = "'e2'"
+        self.assertEqual(actual_e2, expected_e2)
+
     def test_add__when_single_string(self):
         slow_list = SlowList()
         slow_list.add("e1")
