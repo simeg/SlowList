@@ -214,7 +214,7 @@ class SlowList(object):
 
         for i in range(self.size()):
             if self.get(i) == e:
-                __ = self.remove_at(i)
+                self.remove_at(i)
                 return True
 
         return False
