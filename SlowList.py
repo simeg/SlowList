@@ -125,7 +125,8 @@ class SlowList:
 
     def remove(self, element):
         """
-        Removes the first occurrence of the specified element from this list, if it is present (optional operation).
+        Removes and returns the first occurrence of the specified element from
+        this list, if it is present.
 
         :param element: Integer
         :return: Object
