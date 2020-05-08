@@ -2,17 +2,17 @@ class SlowList:
     __list: str = ""
     __delimiter: str = ","
 
-    def __init__(self, *args):
+    def __init__(self, *args: object) -> None:
         self.__list = ""
         if len(args) > 0:
             for arg in args:
                 self.add(arg)
 
     @classmethod
-    def of(cls, *args):
+    def of(cls, *args: object):
         return cls(*args)
 
-    def add(self, element):
+    def add(self, element: object) -> None:
         e = self.__type(element)
 
         if self.is_empty():
@@ -20,7 +20,7 @@ class SlowList:
         else:
             self.__list += "{}{}".format(self.__delimiter, e)
 
-    def addAt(self, index, element):
+    def addAt(self, index: int, element: object) -> None:
         if index > self.size() or index < 0:
             raise IndexError("Index out of bounds")
 
@@ -48,10 +48,10 @@ class SlowList:
                     prev = current
                     count += 1
 
-    def clear(self):
+    def clear(self) -> None:
         self.__list = ""
 
-    def contains(self, element):
+    def contains(self, element: object) -> bool:
         e = self.__type(element)
 
         for i in range(self.size()):
@@ -59,7 +59,7 @@ class SlowList:
                 return True
         return False
 
-    def get(self, index):
+    def get(self, index: int) -> object:
         if self.is_empty() or index < 0:
             raise IndexError("Index out of bounds")
 
@@ -77,7 +77,7 @@ class SlowList:
                 return e
             count += 1
 
-    def index_of(self, element):
+    def index_of(self, element: object) -> int:
         """
         Returns the index of the first occurrence of the specified element in
         this list, or -1 if this list does not contain the element.
@@ -98,10 +98,10 @@ class SlowList:
 
         return -1
 
-    def is_empty(self):
+    def is_empty(self) -> bool:
         return self.__list == ""
 
-    def last_index_of(self, element):
+    def last_index_of(self, element: object) -> int:
         """
         Returns the index of the last occurrence of the specified element in
         this list, or -1 if this list does not contain the element.
@@ -123,13 +123,12 @@ class SlowList:
 
         return -1
 
-    def remove(self, element):
+    def remove(self, element: object) -> bool:
         """
-        Removes and returns the first occurrence of the specified element from
-        this list, if it is present.
+        Removes the element at the specified position in this list.
 
         :param element: Integer
-        :return: Object
+        :return: Boolean
         """
 
         if self.is_empty():
@@ -147,7 +146,7 @@ class SlowList:
 
         return False
 
-    def remove_at(self, index):
+    def remove_at(self, index: int) -> object:
         """
         Removes and returns the element at the specified position in this list.
 
@@ -204,12 +203,12 @@ class SlowList:
             prev = current
             count += 1
 
-    def size(self):
+    def size(self) -> int:
         if self.is_empty():
             return 0
         return self.__list.count(self.__delimiter) + 1
 
-    def set(self, index, element):
+    def set(self, index: int, element: object) -> object:
         """
         Replaces the element at the specified position in this list with the
         specified element. Returns the replaced element.
@@ -271,7 +270,7 @@ class SlowList:
             prev = current
             count += 1
 
-    def to_string(self):
+    def to_string(self) -> str:
         if self.is_empty():
             return ""
         elements = self.__list
@@ -280,7 +279,7 @@ class SlowList:
         formatted_elements = elements.replace(self.__delimiter, spaced_element)
         return "[{}]".format(formatted_elements)
 
-    def __type(self, element):
+    def __type(self, element: object) -> str:
         if self.__is_int(element):
             return str(element)
         elif self.__is_string(element):
@@ -288,8 +287,8 @@ class SlowList:
         else:
             raise TypeError("Datatype not supported")
 
-    def __is_int(self, var):
+    def __is_int(self, var: object) -> bool:
         return isinstance(var, int)
 
-    def __is_string(self, var):
+    def __is_string(self, var: object) -> bool:
         return isinstance(var, str)
