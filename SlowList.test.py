@@ -7,25 +7,13 @@ from SlowList import SlowList
 
 class TestSlowList(unittest.TestCase):
 
-    def test_constructor__no_arguments(self):
+    def test_constructor__when_no_arguments(self):
         slow_list = SlowList()
         self.assertTrue(isinstance(slow_list, SlowList))
 
     def test_constructor__when_arguments(self):
         slow_list = SlowList("e1", "e2")
-
-        self.assertEqual(slow_list.size(), 2)
-
-        actual_e1 = slow_list.get(0)
-        expected_e1 = "'e1'"
-        self.assertEqual(actual_e1, expected_e1)
-
-        actual_e2 = slow_list.get(1)
-        expected_e2 = "'e2'"
-        self.assertEqual(actual_e2, expected_e2)
-
-    def test_of__when_arguments(self):
-        slow_list = SlowList.of("e1", "e2")
+        self.assertTrue(isinstance(slow_list, SlowList))
 
         self.assertEqual(slow_list.size(), 2)
 
@@ -90,7 +78,7 @@ class TestSlowList(unittest.TestCase):
 
     def test_add_at__at_start_of_list(self):
         slow_list = SlowList()
-        slow_list.addAt(0, "e1")
+        slow_list.add_at(0, "e1")
 
         expected = "'e1'"
         actual = slow_list.get(0)
@@ -102,7 +90,7 @@ class TestSlowList(unittest.TestCase):
         slow_list.add("e1")
         slow_list.add("e2")
         slow_list.add("e4")
-        slow_list.addAt(2, "e3")
+        slow_list.add_at(2, "e3")
 
         expected = "'e3'"
         actual = slow_list.get(2)
@@ -113,7 +101,7 @@ class TestSlowList(unittest.TestCase):
         slow_list = SlowList()
         slow_list.add("e1")
         slow_list.add("e2")
-        slow_list.addAt(2, "e3")
+        slow_list.add_at(2, "e3")
 
         expected = "'e3'"
         actual = slow_list.get(2)
@@ -125,7 +113,7 @@ class TestSlowList(unittest.TestCase):
         slow_list.add("e1")
 
         with self.assertRaises(IndexError) as cm:
-            slow_list.addAt(2, "e1")
+            slow_list.add_at(2, "e1")
 
         raised_exception = cm.exception
         self.assertEqual(raised_exception.__class__, IndexError)
@@ -135,7 +123,7 @@ class TestSlowList(unittest.TestCase):
         slow_list = SlowList()
 
         with self.assertRaises(IndexError) as cm:
-            slow_list.addAt(-1, "e1")
+            slow_list.add_at(-1, "e1")
 
         raised_exception = cm.exception
         self.assertEqual(raised_exception.__class__, IndexError)
@@ -287,6 +275,26 @@ class TestSlowList(unittest.TestCase):
         expected = -1
         actual = slow_list.last_index_of("e1")
         self.assertEqual(actual, expected)
+
+    def test_of__when_no_arguments(self):
+        slow_list = SlowList.of()
+
+        self.assertTrue(isinstance(slow_list, SlowList))
+        self.assertEqual(slow_list.size(), 0)
+
+    def test_of__when_arguments(self):
+        slow_list = SlowList.of("e1", "e2")
+        self.assertTrue(isinstance(slow_list, SlowList))
+
+        self.assertEqual(slow_list.size(), 2)
+
+        actual_e1 = slow_list.get(0)
+        expected_e1 = "'e1'"
+        self.assertEqual(actual_e1, expected_e1)
+
+        actual_e2 = slow_list.get(1)
+        expected_e2 = "'e2'"
+        self.assertEqual(actual_e2, expected_e2)
 
     def test_remove__when_empty_list(self):
         slow_list = SlowList()

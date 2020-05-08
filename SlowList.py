@@ -1,18 +1,32 @@
-class SlowList:
+class SlowList(object):
+    """
+    A simple list type. Stores all elements in a single String. SlowList is
+    heterogeneous, meaning you can store data of different types in a single
+    list.
+    """
+
     __list: str = ""
     __delimiter: str = ","
 
-    def __init__(self, *args: object) -> None:
-        self.__list = ""
+    def __init__(self, *args: object):
+        """Constructor with optional arguments.
+
+        Returns:
+            object: instance of SlowList
+
+        """
+        self.clear()
         if len(args) > 0:
             for arg in args:
                 self.add(arg)
 
-    @classmethod
-    def of(cls, *args: object):
-        return cls(*args)
-
     def add(self, element: object) -> None:
+        """Appends the specified element to the end of this list.
+
+        Args:
+            element (object): element to be appended to this list
+
+        """
         e = self.__type(element)
 
         if self.is_empty():
@@ -20,7 +34,18 @@ class SlowList:
         else:
             self.__list += "{}{}".format(self.__delimiter, e)
 
-    def addAt(self, index: int, element: object) -> None:
+    def add_at(self, index: int, element: object) -> None:
+        """Inserts the specified element at the specified position in this
+        list.
+
+        Args:
+            index (int): index at which the specified element is to be inserted
+            element (object): element to be appended to this list
+
+        Raises:
+            IndexError: if the index is out of range
+
+        """
         if index > self.size() or index < 0:
             raise IndexError("Index out of bounds")
 
@@ -31,27 +56,42 @@ class SlowList:
             self.__list = "{}{}{}".format(e, self.__delimiter,
                                           self.__list)
         elif index == self.size():  # If end of list
-            self.__list += ",{}".format(e)
+            self.add(element)
         else:
             count = 1
             prev = 0
-            should_run = True
-            while should_run:
+            while True:
                 current = self.__list.index(self.__delimiter, prev + 1)
                 if count == index:
                     pre = self.__list[:current]
                     post = self.__list[current:]
                     new_element = "{}{}".format(self.__delimiter, e)
                     self.__list = "{}{}{}".format(pre, new_element, post)
-                    should_run = False
+                    return
                 else:
                     prev = current
                     count += 1
 
     def clear(self) -> None:
+        """Removes all of the elements from this list.
+
+        """
         self.__list = ""
 
     def contains(self, element: object) -> bool:
+        """Returns true if this list contains the specified element.
+
+        More formally, returns true if and only if this list contains at least
+        one element e such that `element == e`.
+
+        Args:
+            element (object): element whose presence in this list is to be
+                tested
+
+        Returns:
+            bool: true if this list contains the specified element
+
+        """
         e = self.__type(element)
 
         for i in range(self.size()):
@@ -60,6 +100,18 @@ class SlowList:
         return False
 
     def get(self, index: int) -> object:
+        """Returns the element at the specified position in this list.
+
+        Args:
+            index (int): index of the element to return
+
+        Returns:
+            int: the element at the specified position in this list
+
+        Raises:
+            IndexError: if the index is out of range
+
+        """
         if self.is_empty() or index < 0:
             raise IndexError("Index out of bounds")
 
@@ -70,97 +122,126 @@ class SlowList:
         if self.size() == 1 and index == 0:
             return self.__list
 
-        split = self.__list.split(self.__delimiter)
         count = 0
-        for e in split:
+        for e in self.__list.split(self.__delimiter):
             if index == count:
                 return e
             count += 1
 
     def index_of(self, element: object) -> int:
-        """
-        Returns the index of the first occurrence of the specified element in
-        this list, or -1 if this list does not contain the element.
+        """Returns the index of the first occurrence of the specified element
+        in this list, or -1 if this list does not contain the element.
 
-        :param element: Any
-        :return: Int
-        """
-        if self.is_empty():
-            return -1
+        More formally, returns the lowest index i such that
+        `element == get(i)`, or -1 if there is no such index.
 
+        Args:
+            element (object): element to search for
+
+        Returns:
+            int: the index of the first occurrence of the specified element in
+                this list, or -1 if this list does not contain the element
+
+        """
         e = self.__type(element)
 
-        index = 0
-        for split_e in self.__list.split(self.__delimiter):
-            if e == split_e:
-                return index
-            index += 1
+        for i in range(self.size()):
+            if self.get(i) == e:
+                return i
 
         return -1
 
     def is_empty(self) -> bool:
+        """Returns true if this list contains no elements.
+
+        Returns:
+            bool: true if this list contains no elements
+
+        """
         return self.__list == ""
 
     def last_index_of(self, element: object) -> int:
-        """
-        Returns the index of the last occurrence of the specified element in
+        """Returns the index of the last occurrence of the specified element in
         this list, or -1 if this list does not contain the element.
 
-        :param element: Any
-        :return: Int
-        """
-        if self.is_empty():
-            return -1
+        More formally, returns the highest index i such that
+        `element == get(i)`, or -1 if there is no such index.
 
+        Args:
+            element (object): element to search for
+
+        Returns:
+            int: the index of the last occurrence of the specified element in
+                this list, or -1 if this list does not contain the element
+
+        """
         e = self.__type(element)
 
-        index = self.size() - 1
-        split = self.__list.split(self.__delimiter)
-        for split_e in reversed(split):
-            if e == split_e:
-                return index
-            index -= 1
+        for i in reversed(range(self.size())):
+            if self.get(i) == e:
+                return i
 
         return -1
 
+    @classmethod
+    def of(cls, *args: object):
+        """Constructor with optional arguments.
+
+        Returns:
+            object: instance of SlowList
+
+        """
+        return cls(*args)
+
     def remove(self, element: object) -> bool:
+        """Removes the first occurrence of the specified element from this
+        list, if it is present.
+
+        If this list does not contain the element, it is unchanged. More
+        formally, removes the element with the lowest index i such that
+        `element == get(i)` (if such an element exists). Returns true if this
+        list contained the specified element (or equivalently, if this list
+        changed as a result of the call).
+
+        Args:
+            element (object): element to be removed from this list, if present
+
+        Returns:
+            bool: true if this list contained the specified element
+
         """
-        Removes the element at the specified position in this list.
-
-        :param element: Integer
-        :return: Boolean
-        """
-
-        if self.is_empty():
-            return False
-
         e = self.__type(element)
 
-        index = 0
-        split = self.__list.split(self.__delimiter)
-        for split_e in split:
-            if split_e == e:
-                __ = self.remove_at(index)
+        for i in range(self.size()):
+            if self.get(i) == e:
+                __ = self.remove_at(i)
                 return True
-            index += 1
 
         return False
 
     def remove_at(self, index: int) -> object:
-        """
-        Removes and returns the element at the specified position in this list.
+        """Removes the element at the specified position in this list.
 
-        :param index: Integer
-        :return: Object
-        """
+        Shifts any subsequent elements to the left (subtracts one from their
+        indices). Returns the element that was removed from the list.
 
+        Args:
+            index (int): the index of the element to be removed
+
+        Returns:
+            object: the element previously at the specified position
+
+        Raises:
+            IndexError: if the index is out of range
+
+        """
         if self.is_empty() or index >= self.size():
             raise IndexError("Index out of bounds")
 
         # (Optimization) If only one element and index is 0
         if self.size() == 1 and index == 0:
-            e = self.__list
-            self.__list = ""
+            e = self.get(0)
+            self.clear()
             return e
 
         if index == 0:
@@ -188,7 +269,7 @@ class SlowList:
                     next_delimiter = self.__list.index(self.__delimiter,
                                                        current + 1)
                     post = self.__list[next_delimiter:]
-                except Exception:
+                except ValueError:
                     # If last element
                     next_delimiter = len(self.__list)
                     post = ""
@@ -203,19 +284,31 @@ class SlowList:
             prev = current
             count += 1
 
-    def size(self) -> int:
+    def size(self):
+        """Returns the number of elements in this list.
+
+        Returns:
+            int: the number of elements in this list
+
+        """
         if self.is_empty():
             return 0
         return self.__list.count(self.__delimiter) + 1
 
     def set(self, index: int, element: object) -> object:
-        """
-        Replaces the element at the specified position in this list with the
-        specified element. Returns the replaced element.
+        """Replaces the element at the specified position in this list with the
+        specified element.
 
-        :param index: Int
-        :param element: Object
-        :return: Object
+        Args:
+            index: index of the element to replace
+            element: element to be stored at the specified position
+
+        Returns:
+            object: the element previously at the specified position
+
+        Raises:
+            IndexError: if the index is out of range
+
         """
         if self.is_empty() or index >= self.size():
             raise IndexError("Index out of bounds")
@@ -224,9 +317,9 @@ class SlowList:
 
         # (Optimization) If only one element and index is 0
         if self.size() == 1 and index == 0:
-            elems = self.__list
-            self.__list = e
-            return elems
+            replaced_element = self.remove_at(0)
+            self.add(element)
+            return replaced_element
 
         # If first element in list
         if index == 0:
@@ -234,7 +327,7 @@ class SlowList:
             # Get list except first element
             post = self.__list[first_delimiter:]
             # Get replaced element before modifying list
-            replaced_element = self.__list[:first_delimiter]
+            replaced_element = self.get(0)
 
             # Construct new list
             self.__list = "{}{}".format(e, post)
@@ -254,7 +347,7 @@ class SlowList:
                     next_delimiter = self.__list.index(self.__delimiter,
                                                        current + 1)
                     post = self.__list[next_delimiter:]
-                except Exception:
+                except ValueError:
                     # If last element
                     next_delimiter = len(self.__list)
                     post = ""
@@ -271,24 +364,68 @@ class SlowList:
             count += 1
 
     def to_string(self) -> str:
+        """Returns a string representation of the object.
+
+        Returns:
+            str: a string representation of the object
+
+        """
         if self.is_empty():
             return ""
-        elements = self.__list
+
+        list = self.__list
         # Insert whitespace between elements
-        spaced_element = "{}{}".format(self.__delimiter, " ")
-        formatted_elements = elements.replace(self.__delimiter, spaced_element)
+        formatted_elements = list.replace(self.__delimiter,
+                                          "{}{}".format(self.__delimiter, " "))
         return "[{}]".format(formatted_elements)
 
-    def __type(self, element: object) -> str:
-        if self.__is_int(element):
-            return str(element)
-        elif self.__is_string(element):
-            return "'{}'".format(element)
+    def __type(self, var: object) -> str:
+        """Returns the internal representation depending on the type.
+
+        For String it will return:
+            '99'
+        For Integer it will return:
+            99
+
+        Args:
+            var (object): variable to convert
+
+        Returns:
+            str: internal representation of type
+
+        Raises:
+            TypeError: if data type not supported
+
+        """
+        if self.__is_int(var):
+            return str(var)
+        elif self.__is_string(var):
+            return "'{}'".format(var)
         else:
             raise TypeError("Datatype not supported")
 
-    def __is_int(self, var: object) -> bool:
+    @staticmethod
+    def __is_int(var: object) -> bool:
+        """Returns whether the variable is a valid Integer or not.
+
+        Args:
+            var (object): variable to check
+
+        Returns:
+            bool: whether the variable is a valid Integer or not
+
+        """
         return isinstance(var, int)
 
-    def __is_string(self, var: object) -> bool:
+    @staticmethod
+    def __is_string(var: object) -> bool:
+        """Returns whether the variable is a valid String or not.
+
+        Args:
+            var (object): variable to check
+
+        Returns:
+            bool: whether the variable is a valid String or not
+
+        """
         return isinstance(var, str)
