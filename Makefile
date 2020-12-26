@@ -1,13 +1,10 @@
 .PHONY: ci coverage docs install lint
 
-# Travis cannot use 'pushd' or 'popd' without SHELL defined
-SHELL := /bin/bash
-
-ci: lint coverage
+ci: install lint coverage
 
 # Run tests and generate coverage data
 coverage:
-	coverage run *.test.py
+	coverage json -o .coverage.json *.test.py
 
 docs:
 	pdoc --html --output-dir docs SlowList

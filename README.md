@@ -1,4 +1,4 @@
-# SlowList [![Build Status](https://travis-ci.com/simeg/SlowList.svg?branch=master)](https://travis-ci.com/simeg/SlowList) [![codecov](https://codecov.io/gh/simeg/slowlist/branch/master/graph/badge.svg)](https://codecov.io/gh/simeg/slowlist)
+# SlowList ![CI](https://github.com/simeg/SlowList/workflows/CI/badge.svg) [![codecov](https://codecov.io/gh/simeg/slowlist/branch/master/graph/badge.svg)](https://codecov.io/gh/simeg/slowlist)
 
 A simple List type that stores its data within a String.
 
